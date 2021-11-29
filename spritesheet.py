@@ -28,7 +28,6 @@ class Spritesheet(object):
 					frame_data.append(frame.attributes['image'].value)
 
 					self.frames[sprite.attributes['name'].value].append(self.load_image(frame_data[0], frame_data[1], frame_data[2], frame_data[3], frame_data[4]))
-		pass
 
 	def load_image(self, x, y, w, h, filename):
 		image = pygame.image.load(filename)
@@ -60,11 +59,9 @@ class Spritesheet(object):
 					self.frame = spr_name
 					self.frame_index = 0
 					self.count = 0
-		pass
 
 	def image(self):
 		if self.frames.get(self.frame) and self.frame_index < len(self.frames[self.frame]):
 			return pygame.transform.scale(self.frames[self.frame][self.frame_index],
 				(int(self.frames[self.frame][self.frame_index].get_width() * self.scale),
 				int(self.frames[self.frame][self.frame_index].get_height() * self.scale)))
-		pass

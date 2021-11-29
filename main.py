@@ -29,7 +29,7 @@ def main():
 
         display.fill((0, 0, 0))
         for entity in all_sprites:
-            display.blit(entity.animation.image(), entity.rect)
+            display.blit(entity.image, entity.rect)
 
         pygame.display.update()
         clock.tick(Conf.FPS)
