@@ -1,0 +1,2 @@
+Archer character art: @Calciumtrice/calciumtrice.tumblr.com
+XML Spritesheet library: asciidea@github
