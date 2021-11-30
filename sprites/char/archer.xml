@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sprites>
+  <sprite name="arch_walk">
+    <frame x="32" y="64" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="64" y="64" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="96" y="64" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="128" y="64" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="192" y="64" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="224" y="64" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="256" y="64" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="288" y="64" w="32" h="32" image="sprites\\char\\archer.png"/>
+  </sprite>
+  <sprite name="arch_shoot">
+    <frame x="0" y="96" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="32" y="96" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="64" y="96" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="96" y="96" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="128" y="96" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="156" y="96" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="188" y="96" w="32" h="32" image="sprites\\char\\archer.png"/>
+  </sprite>
+  <sprite name="arch_idle">
+    <frame x="0" y="0" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="32" y="0" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="64" y="0" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="96" y="0" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="128" y="0" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="192" y="0" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="224" y="0" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="256" y="0" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="288" y="0" w="32" h="32" image="sprites\\char\\archer.png"/>
+  </sprite>
+  <sprite name="arch_idle2">
+    <frame x="0" y="32" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="32" y="32" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="64" y="32" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="96" y="32" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="128" y="32" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="192" y="32" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="224" y="32" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="256" y="32" w="32" h="32" image="sprites\\char\\archer.png"/>
+    <frame x="288" y="32" w="32" h="32" image="sprites\\char\\archer.png"/>
+  </sprite>
+</sprites>
