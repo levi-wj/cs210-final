@@ -13,7 +13,7 @@ def main():
 
     player = Player(v2(Conf.WIDTH/2, Conf.HEIGHT/2))
 
-    all_sprites = pygame.sprite.Group()
+    all_sprites = pygame.sprite.LayeredUpdates()
     all_sprites.add(player)
 
     while True:
@@ -24,12 +24,10 @@ def main():
 
         keys = pygame.key.get_pressed()
 
-        for entity in all_sprites:
-            entity.update(keys)
+        all_sprites.update(keys)
 
         display.fill((0, 0, 0))
-        for entity in all_sprites:
-            display.blit(entity.image, entity.rect)
+        all_sprites.draw(display)
 
         pygame.display.update()
         clock.tick(Conf.FPS)

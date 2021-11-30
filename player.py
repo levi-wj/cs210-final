@@ -7,10 +7,13 @@ from conf import Conf
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos) -> None:
+        self._layer = 10
         super().__init__()
-        self.surf = pygame.Surface((96, 96))
-        self.rect = self.surf.get_rect(center=(pos.x, pos.y))
-        self.setup_sprite()
+
+        self.animation = Spritesheet('sprites\\char\\archer.xml', scale=3)
+        self.animation.play('arch_idle')
+        self.image = self.animation.image()
+        self.rect = self.image.get_rect()
 
         self.pos = pos
         self.vel = v2(0, 0)
@@ -19,9 +22,6 @@ class Player(pygame.sprite.Sprite):
         self.jump_speed = 2
         self.anim_state = AnimState.IDLE
 
-    def setup_sprite(self):
-        self.animation = Spritesheet('sprites\\archer.xml', scale=3)
-    
     def handle_input(self, keys):
         self.acc = v2(0, 0)
         new_state = AnimState.IDLE
@@ -46,7 +46,7 @@ class Player(pygame.sprite.Sprite):
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         
-        self.rect.midbottom = self.pos
+        self.rect.bottomleft = self.pos
 
     def animate(self):
         if self.anim_state == AnimState.WALK:
