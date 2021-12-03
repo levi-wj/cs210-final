@@ -4,7 +4,7 @@ from xml.dom import minidom as XML
 pygame.init()
 
 class Spritesheet(object):
-	def __init__(self, xml_filename: str, fps: int=32, scale: float=1):
+	def __init__(self, xml_filename: str, fps: int=32, scale: int=1):
 		self.frames = {}
 		self.frame_index = 0
 		self.xml_sprites = XML.parse(xml_filename).getElementsByTagName('sprite')
@@ -13,7 +13,6 @@ class Spritesheet(object):
 		self.playing = False
 		self.frame = '<???>'
 		self.stopped = False
-		self.scale = scale
 
 		for sprite in self.xml_sprites:
 			if not self.frames.get(sprite.attributes['name'].value):
@@ -27,7 +26,7 @@ class Spritesheet(object):
 					frame_data.append(int(frame.attributes['h'].value))
 					frame_data.append(frame.attributes['image'].value)
 
-					self.frames[sprite.attributes['name'].value].append(self.load_image(frame_data[0], frame_data[1], frame_data[2], frame_data[3], frame_data[4]))
+					self.frames[sprite.attributes['name'].value].append(pygame.transform.scale(self.load_image(frame_data[0], frame_data[1], frame_data[2], frame_data[3], frame_data[4]), (scale, scale)))
 
 	def load_image(self, x, y, w, h, filename):
 		image = pygame.image.load(filename)
@@ -38,7 +37,7 @@ class Spritesheet(object):
 
 		return new_image
 
-	def play(self, sprite_name: str, repeat = True):
+	def play(self, sprite_name: str, repeat=True):
 		for spr_name in self.frames.keys():
 			if spr_name == sprite_name:
 				if self.frame == sprite_name:
@@ -62,6 +61,7 @@ class Spritesheet(object):
 
 	def image(self):
 		if self.frames.get(self.frame) and self.frame_index < len(self.frames[self.frame]):
-			return pygame.transform.scale(self.frames[self.frame][self.frame_index],
-				(int(self.frames[self.frame][self.frame_index].get_width() * self.scale),
-				int(self.frames[self.frame][self.frame_index].get_height() * self.scale)))
+			return self.frames[self.frame][self.frame_index]
+
+	def get_sprite(self, index):
+		return self.frames[list(self.frames)[int(index)]][0]

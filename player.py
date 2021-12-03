@@ -10,58 +10,64 @@ class Player(pygame.sprite.Sprite):
         self._layer = 10
         super().__init__()
 
-        self.animation = Spritesheet('sprites\\char\\archer.xml', scale=3)
-        self.animation.play('arch_idle')
-        self.image = self.animation.image()
+        self._animation = Spritesheet('sprites\\char\\archer.xml', scale=80)
+        self._animation.play('arch_idle')
+        self.image = self._animation.image()
         self.rect = self.image.get_rect()
 
-        self.pos = pos
-        self.vel = v2(0, 0)
-        self.acc = v2(0, 0)
-        self.speed = 2.5
-        self.jump_speed = 2
-        self.anim_state = AnimState.IDLE
+        self._pos = pos
+        self._vel = v2(0, 0)
+        self._acc = v2(0, 0)
+        self._speed = 2.5
+        self._grounded = False
+        self._jump_power = 7
+        self._anim_state = AnimState.IDLE
 
     def handle_input(self, keys):
-        self.acc = v2(0, 0)
+        self._acc = v2(0, 0)
         new_state = AnimState.IDLE
         if keys[K_a]:
-            self.acc.x = -self.speed
+            self._acc.x = -self._speed
             new_state = AnimState.WALK
         if keys[K_d]:
-            self.acc.x = self.speed
+            self._acc.x = self._speed
             new_state = AnimState.WALK
         if keys[K_w]:
-            self.acc.y = -self.jump_speed
-            new_state = AnimState.JUMP
+            if self._grounded:
+                self._acc.y = -self._jump_power
+                new_state = AnimState.JUMP
         
-        self.anim_state = new_state
+        self._anim_state = new_state
 
-    def do_collision(self):
-        pass
+    def check_collision(self, tilesgroup):
+        col = pygame.sprite.spritecollide(self, tilesgroup, False)
+        self._grounded = (col != [])
 
     def do_physics(self):
-        self.acc.x += self.vel.x * Conf.FRIC
-        # self.acc.y += Conf.GRAV
-        self.vel += self.acc
-        self.pos += self.vel + 0.5 * self.acc
+        self._acc.x += self._vel.x * Conf.FRIC
+        if not self._grounded:
+            self._acc.y += Conf.GRAV
+        else:
+            self._vel.y = 0
+        self._vel += self._acc
+        self._pos += self._vel + 0.5 * self._acc
         
-        self.rect.bottomleft = self.pos
+        self.rect.bottomleft = self._pos
 
     def animate(self):
-        if self.anim_state == AnimState.WALK:
-            self.animation.play('arch_walk')
-        elif self.anim_state == AnimState.IDLE:
-            self.animation.play('arch_idle')
+        if self._anim_state == AnimState.WALK:
+            self._animation.play('arch_walk')
+        elif self._anim_state == AnimState.IDLE:
+            self._animation.play('arch_idle')
 
-        self.image = self.animation.image()
+        self.image = self._animation.image()
         # Flip to face the direction that we're moving
-        if (self.vel.x > 0 and self.image.get_rect().width < 0) or (self.vel.x < 0 and self.image.get_rect().width > 0):
+        if (self._vel.x > 0 and self.image.get_rect().width < 0) or (self._vel.x < 0 and self.image.get_rect().width > 0):
             self.image = pygame.transform.flip(self.image, True, False)
 
-    def update(self, keys):
+    def update(self, keys, tilesgroup):
         self.handle_input(keys)
-        self.do_collision()
+        self.check_collision(tilesgroup)
         self.do_physics()
         self.animate()
 

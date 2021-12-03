@@ -1,7 +1,7 @@
 class Conf:
-    WIDTH = 1000
-    HEIGHT = 500
+    WIDTH = 800 # 32(tilewidth) * 25
+    HEIGHT = 480 # 32(tileheight) * 15
     FPS = 60
     FRIC = -.25
-    GRAV = .35
+    GRAV = .75
     APPTITLE = "Archer"

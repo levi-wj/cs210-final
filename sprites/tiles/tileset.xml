@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sprites>
+  <sprite name="blank">
+    <frame x="0" y="0" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+  <sprite name="platform_left">
+    <frame x="16" y="0" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+  <sprite name="platform_mid">
+    <frame x="32" y="0" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+  <sprite name="platform_right">
+    <frame x="48" y="0" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+  <sprite name="dirt_bright">
+    <frame x="64" y="0" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+  <sprite name="dirt_top">
+    <frame x="80" y="0" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+  <sprite name="platform_single">
+    <frame x="96" y="0" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+  <sprite name="blank2">
+    <frame x="0" y="16" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+  <sprite name="dirt_left">
+    <frame x="16" y="16" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+  <sprite name="dirt_mid">
+    <frame x="32" y="16" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+  <sprite name="dirt_right">
+    <frame x="48" y="16" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+  <sprite name="dirt_topleft">
+    <frame x="64" y="16" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+  <sprite name="dirt_bottomright">
+    <frame x="80" y="16" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+  <sprite name="brick_platform">
+    <frame x="96" y="16" w="16" h="16" image="sprites\\tiles\\tileset.png"/>
+  </sprite>
+</sprites>
