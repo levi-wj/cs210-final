@@ -6,9 +6,9 @@ from pygame.math import Vector2 as v2
 from conf import Conf
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos) -> None:
+    def __init__(self, pos, groups) -> None:
         self._layer = 10
-        super().__init__()
+        super().__init__(*groups)
 
         self._animation = Spritesheet('sprites\\char\\archer.xml', scale=80)
         self._animation.play('arch_idle')
@@ -20,7 +20,7 @@ class Player(pygame.sprite.Sprite):
         self._acc = v2(0, 0)
         self._speed = 2.5
         self._grounded = False
-        self._jump_power = 7
+        self._jump_power = 15
         self._anim_state = AnimState.IDLE
 
     def handle_input(self, keys):
@@ -42,6 +42,8 @@ class Player(pygame.sprite.Sprite):
     def check_collision(self, tilesgroup):
         col = pygame.sprite.spritecollide(self, tilesgroup, False)
         self._grounded = (col != [])
+        if self._grounded:
+            self._pos.y = col[0].rect.top
 
     def do_physics(self):
         self._acc.x += self._vel.x * Conf.FRIC
@@ -49,6 +51,7 @@ class Player(pygame.sprite.Sprite):
             self._acc.y += Conf.GRAV
         else:
             self._vel.y = 0
+            self._acc.y = 0
         self._vel += self._acc
         self._pos += self._vel + 0.5 * self._acc
         
