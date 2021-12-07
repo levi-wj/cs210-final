@@ -21,8 +21,9 @@ def main():
     display = pygame.display.set_mode((Conf.WIDTH, Conf.HEIGHT))
     pygame.display.set_caption(Conf.APPTITLE)
 
+    background = pygame.sprite.LayeredUpdates()
     interactables = pygame.sprite.LayeredUpdates()
-    all_sprites = pygame.sprite.LayeredUpdates()
+    foreground = pygame.sprite.LayeredUpdates()
 
     cam = Camera(v2(Conf.WIDTH, Conf.HEIGHT))
     Background([
@@ -30,9 +31,11 @@ def main():
         'sprites\\tiles\\BG2.png',
         'sprites\\tiles\\BG3.png'],
         v2(Conf.WIDTH, Conf.HEIGHT),
-        cam, all_sprites)
-    Level('levels\\1.csv', 'sprites\\tiles\\tileset.xml', (interactables, all_sprites))
-    player = Player(v2(10, 100), all_sprites)
+        cam, background)
+    Level('levels\\1.csv', 'sprites\\tiles\\tileset.xml', interactables)
+    player = Player(v2(10, 100), foreground)
+
+    foreground.add(interactables)
 
     while True:
         for event in pygame.event.get():
@@ -41,11 +44,16 @@ def main():
                 sys.exit()
 
         keys = pygame.key.get_pressed()
-        all_sprites.update(keys, interactables)
+        foreground.update(keys, interactables)
+        background.update(keys)
         cam.move_towards(player._pos)
 
         display.fill((0, 0, 0))
-        all_sprites.draw(display)
+        for sprite in background:
+            display.blit(sprite.image, sprite.rect)
+        for sprite in foreground:
+            offset = cam.get_drawing_offset()
+            display.blit(sprite.image, (sprite.rect.x - offset.x, sprite.rect.y - offset.y))
 
         pygame.display.update()
         clock.tick(Conf.FPS)

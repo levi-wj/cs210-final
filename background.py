@@ -19,4 +19,4 @@ class BGLayer(pygame.sprite.Sprite):
         self._movespeed = .02
 
     def update(self, *args):
-        self.rect.bottomleft = (self._cam._pos.x * self._bglayer * self._movespeed * -1, self._bottom)
+        self.rect.bottomleft = (self._cam.pos.x * self._bglayer * self._movespeed * -1, self._bottom)
