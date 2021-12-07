@@ -21,9 +21,7 @@ def main():
     display = pygame.display.set_mode((Conf.WIDTH, Conf.HEIGHT))
     pygame.display.set_caption(Conf.APPTITLE)
 
-    background = pygame.sprite.LayeredUpdates()
     interactables = pygame.sprite.LayeredUpdates()
-    player = pygame.sprite.LayeredUpdates()
     all_sprites = pygame.sprite.LayeredUpdates()
 
     cam = Camera(v2(Conf.WIDTH, Conf.HEIGHT))
@@ -32,9 +30,9 @@ def main():
         'sprites\\tiles\\BG2.png',
         'sprites\\tiles\\BG3.png'],
         v2(Conf.WIDTH, Conf.HEIGHT),
-        cam, (background, all_sprites))
+        cam, all_sprites)
     Level('levels\\1.csv', 'sprites\\tiles\\tileset.xml', (interactables, all_sprites))
-    player = Player(v2(10, 100), (player, all_sprites))
+    player = Player(v2(10, 100), all_sprites)
 
     while True:
         for event in pygame.event.get():

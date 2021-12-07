@@ -8,7 +8,7 @@ from conf import Conf
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups) -> None:
         self._layer = 10
-        super().__init__(*groups)
+        super().__init__(groups)
 
         self._animation = Spritesheet('sprites\\char\\archer.xml', scale=80)
         self._animation.play('arch_idle')

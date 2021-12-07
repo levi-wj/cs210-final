@@ -29,7 +29,7 @@ class Spritesheet(object):
 					self.frames[sprite.attributes['name'].value].append(pygame.transform.scale(self.load_image(frame_data[0], frame_data[1], frame_data[2], frame_data[3], frame_data[4]), (scale, scale)))
 
 	def load_image(self, x, y, w, h, filename):
-		image = pygame.image.load(filename)
+		image = pygame.image.load(filename).convert_alpha()
 		region = [x, y, w, h]
 
 		new_image = pygame.Surface((region[2], region[3]), pygame.SRCALPHA, 32).convert_alpha()
