@@ -45,7 +45,7 @@ class Main():
     def start_menu(self):
         for sprite in self._background:
             self._display.blit(sprite.image, sprite.rect)
-        Menu(self._display, lambda: self.start_level('1'), pygame.quit, self._foreground)
+        Menu(self._display, lambda: self.start_level('1'), self.start_leveleditor, pygame.quit, self._foreground)
 
         while True:
             for event in pygame.event.get():
@@ -59,6 +59,7 @@ class Main():
             for sprite in self._foreground:
                 sprite.update(v2(mouse[0], mouse[1]), click)
                 self._display.blit(sprite.surf, sprite.rect)
+                self._display.blit(sprite.text, sprite.rect)
 
             pygame.display.update() 
 
@@ -90,6 +91,9 @@ class Main():
             pygame.display.update()
             self._clock.tick(Conf.FPS)
             # print(clock.get_fps())
+
+    def start_leveleditor(self):
+        pass
 
 if __name__ == "__main__":
     Main()
