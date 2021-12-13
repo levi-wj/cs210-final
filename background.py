@@ -1,4 +1,5 @@
 import pygame
+from pygame.math import Vector2 as v2
 
 class Background():
     def __init__(self, bgimgs, screen, cam, groups):
@@ -18,5 +19,5 @@ class BGLayer(pygame.sprite.Sprite):
         self._bottom = screenbottom 
         self._movespeed = .02
 
-    def update(self, *args):
-        self.rect.bottomleft = (self._cam.pos.x * self._bglayer * self._movespeed * -1, self._bottom)
+    def render(self, display, offset):
+        display.blit(self.image, v2(offset.x * self._bglayer * self._movespeed * -1, 0))

@@ -1,18 +1,27 @@
 '''
-    Name: main.py
-    Object oriented philosophy: 
-    Purpose: Handle the main game loop
+Description:
+    This main file handles the game loops and state
+
+OOP Principles Used:
+  Inheritance, Abstraction, encapsulation, polymorphism
+
+Reasoning:
+  This class uses inheritance because...
+  This file uses polymorphism etc....
 '''
+
 
 import sys
 import pygame
 from pygame.math import Vector2 as v2
+from pygame.sprite import spritecollide
 from camera import Camera
 from conf import Conf
 from player import Player
-from level import Level
+from level import Level 
 from background import Background
 from menu import Menu
+from leveleditor import LevelEditor
 
 
 class Main():
@@ -58,17 +67,47 @@ class Main():
 
             for sprite in self._foreground:
                 sprite.update(v2(mouse[0], mouse[1]), click)
-                self._display.blit(sprite.surf, sprite.rect)
-                self._display.blit(sprite.text, sprite.rect)
+                sprite.render(self._display, None)
 
             pygame.display.update() 
+
+
+    def start_leveleditor(self):
+        self.clear_graphics()
+        click = False 
+
+        #player = Player(v2(0, 400), self._foreground)
+        leveledit = LevelEditor('levels\\1.csv', self.start_menu, self._foreground)
+
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                click = event.type == pygame.MOUSEBUTTONDOWN
+
+            mousepos = pygame.mouse.get_pos()
+
+            keys = pygame.key.get_pressed()
+            leveledit.update(keys, mousepos, click)
+            # self._cam.move_towards()
+
+            offset = self._cam.get_drawing_offset()
+            
+            for sprite in self._background:
+                sprite.render(self._display, offset)
+            for sprite in self._foreground:
+                sprite.render(self._display, offset)
+
+            pygame.display.update()
+            self._clock.tick(Conf.FPS)
 
 
     def start_level(self, levelname):
         self.clear_graphics()
 
         Level('levels\\' + str(levelname) + '.csv', 'sprites\\tiles\\tileset.xml', (self._interactables, self._foreground))
-        player = Player(v2(0, 500), self._foreground)
+        player = Player(v2(0, 450), self._foreground)
 
         while True:
             for event in pygame.event.get():
@@ -78,10 +117,9 @@ class Main():
 
             keys = pygame.key.get_pressed()
             player.update(keys, self._interactables)
-            self._background.update(keys)
+            self._background.update()
             self._cam.move_towards(player._pos)
 
-            self._display.fill((0, 0, 0))
             for sprite in self._background:
                 self._display.blit(sprite.image, sprite.rect)
             for sprite in self._foreground:
@@ -91,9 +129,6 @@ class Main():
             pygame.display.update()
             self._clock.tick(Conf.FPS)
             # print(clock.get_fps())
-
-    def start_leveleditor(self):
-        pass
 
 if __name__ == "__main__":
     Main()

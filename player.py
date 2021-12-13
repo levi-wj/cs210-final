@@ -14,6 +14,7 @@ class Player(pygame.sprite.Sprite):
         self._animation.play('arch_idle')
         self.image = self._animation.image()
         self.rect = self.image.get_rect()
+        self.rect.bottomleft = pos
 
         self._pos = pos
         self._vel = v2(0, 0)
@@ -73,6 +74,9 @@ class Player(pygame.sprite.Sprite):
         self.check_collision(tilesgroup)
         self.do_physics()
         self.animate()
+
+    def render(self, display, offset):
+        display.blit(self.image, (self.rect.x - offset.x, self.rect.y - offset.y))
 
 class AnimState(Enum):
     IDLE = 0

@@ -1,6 +1,7 @@
 import csv
-from tile import Tile
 from spritesheet import Spritesheet
+import pygame
+from pygame.locals import *
 from pygame.math import Vector2 as v2
 
 '''
@@ -35,3 +36,22 @@ class Level:
                         )
                     )
         return entities
+
+class Tile(pygame.sprite.Sprite):
+    def __init__(self, sprite, pos, size, layer, groups) -> None:
+        self._layer = layer
+        super().__init__(groups)
+
+        self.image = sprite
+        self.size = size
+        self.rect = self.image.get_rect()
+        self.rect.bottomleft = pos
+
+    def setgridpos(self, x, y):
+        mid = v2(x - (self.size.x / 2), y + (self.size.y / 2))
+        self.rect.bottomleft = v2(
+            self.size.x * round(mid.x / self.size.x),
+            self.size.y * round(mid.y / self.size.y))
+
+    def render(self, display, offset):
+        display.blit(self.image, (self.rect.x - offset.x, self.rect.y - offset.y))
