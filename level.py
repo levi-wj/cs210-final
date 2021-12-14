@@ -1,13 +1,24 @@
+'''
+Description:
+    this class loads map data from an image and generates the corresponding entities 
+
+OOP Principles Used:
+  Inheritance, Abstraction, encapsulation, polymorphism
+
+Reasoning:
+  This class uses inheritance because...
+  This file uses polymorphism etc....
+'''
+
+
 import csv
+from conf import Conf
 from spritesheet import Spritesheet
 import pygame
 from pygame.locals import *
 from pygame.math import Vector2 as v2
 
-'''
-    Class: map
-    Description: this class loads map data from an image and generates the corresponding entities 
-'''
+
 class Level:
     def __init__(self, mappath, tilespath, groups) -> None:
         self._tilesize = 32
@@ -17,9 +28,12 @@ class Level:
         self._entities = self.create_entities()
     
     def read_lvldata(self, mappath):
-        with open(mappath, 'r') as csvfile:
-            reader = csv.reader(csvfile)
-            return list(reader)
+        if mappath:
+            with open(mappath, 'r') as csvfile:
+                reader = csv.reader(csvfile)
+                return list(reader)
+        else:
+            return [[0 for _ in range(Conf.LVLWIDTH)] for _ in range(Conf.LVLHEIGHT)]
 
     def create_entities(self):
         entities = []
@@ -32,8 +46,7 @@ class Level:
                             v2(j * self._tilesize, i * self._tilesize),
                             self._tilesize,
                             1,
-                            self._groups
-                        )
+                            self._groups)
                     )
         return entities
 
@@ -47,8 +60,8 @@ class Tile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.bottomleft = pos
 
-    def setgridpos(self, x, y):
-        mid = v2(x - (self.size.x / 2), y + (self.size.y / 2))
+    def setgridpos(self, x, y, camoffset):
+        mid = v2((x + camoffset.x) - (self.size.x / 2), (y + camoffset.y) + (self.size.y / 2))
         self.rect.bottomleft = v2(
             self.size.x * round(mid.x / self.size.x),
             self.size.y * round(mid.y / self.size.y))

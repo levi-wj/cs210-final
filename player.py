@@ -13,8 +13,11 @@ class Player(pygame.sprite.Sprite):
         self._animation = Spritesheet('sprites\\char\\archer.xml', scale=80)
         self._animation.play('arch_idle')
         self.image = self._animation.image()
-        self.rect = self.image.get_rect()
+        hitbox = self.image.get_rect()
+        hitbox.w /= 2.5
+        self.rect = hitbox 
         self.rect.bottomleft = pos
+        self._hitbox_offset = 25
 
         self._pos = pos
         self._vel = v2(0, 0)
@@ -76,7 +79,9 @@ class Player(pygame.sprite.Sprite):
         self.animate()
 
     def render(self, display, offset):
-        display.blit(self.image, (self.rect.x - offset.x, self.rect.y - offset.y))
+        # Draw hitbox
+        # pygame.draw.rect(display, (220, 150, 150), (self.rect.left - offset.x, self.rect.top - offset.y, self.rect.w, self.rect.h))
+        display.blit(self.image, (self.rect.x - offset.x - self._hitbox_offset, self.rect.y - offset.y))
 
 class AnimState(Enum):
     IDLE = 0

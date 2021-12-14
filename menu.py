@@ -14,6 +14,7 @@ class Menu():
 
 class Button(pygame.sprite.Sprite):
     def __init__(self, pos, size, text, color, highlight_color, onclick, groups):
+        self._layer = 100
         super().__init__(groups)
         self._pos = pos
         self._size = size

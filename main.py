@@ -14,7 +14,6 @@ Reasoning:
 import sys
 import pygame
 from pygame.math import Vector2 as v2
-from pygame.sprite import spritecollide
 from camera import Camera
 from conf import Conf
 from player import Player
@@ -52,6 +51,8 @@ class Main():
     
 
     def start_menu(self):
+        self.clear_graphics()
+        click = False
         for sprite in self._background:
             self._display.blit(sprite.image, sprite.rect)
         Menu(self._display, lambda: self.start_level('1'), self.start_leveleditor, pygame.quit, self._foreground)
@@ -76,8 +77,8 @@ class Main():
         self.clear_graphics()
         click = False 
 
-        #player = Player(v2(0, 400), self._foreground)
-        leveledit = LevelEditor('levels\\1.csv', self.start_menu, self._foreground)
+        player = Player(v2(0, 420), self._foreground)
+        leveledit = LevelEditor(self.start_menu, self._cam, self._foreground)
 
         while True:
             for event in pygame.event.get():
@@ -89,7 +90,8 @@ class Main():
             mousepos = pygame.mouse.get_pos()
 
             keys = pygame.key.get_pressed()
-            leveledit.update(keys, mousepos, click)
+            leveledit.update(keys, v2(mousepos[0], mousepos[1]), click)
+            self._cam.move(keys)
             # self._cam.move_towards()
 
             offset = self._cam.get_drawing_offset()
@@ -124,7 +126,7 @@ class Main():
                 self._display.blit(sprite.image, sprite.rect)
             for sprite in self._foreground:
                 offset = self._cam.get_drawing_offset()
-                self._display.blit(sprite.image, (sprite.rect.x - offset.x, sprite.rect.y - offset.y))
+                sprite.render(self._display, offset)
 
             pygame.display.update()
             self._clock.tick(Conf.FPS)
