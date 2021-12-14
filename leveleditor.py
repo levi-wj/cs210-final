@@ -21,9 +21,8 @@ class LevelEditor():
 
     def place_tile(self):
         t = self._previewTile
-        print(int((t.rect.centerx / 16) - 1), int((t.rect.centery / 16) - 1))
         Tile(t.image, t.rect.bottomleft, t.size, t.layer, self._rendergroup)
-        self._level._lvldata[int((t.rect.centerx / 16) - 1)][int((t.rect.centery / 16) - 1)] = self._curtile
+        self._level._lvldata[int((t.rect.centery / t.size.y) - 1)][int((t.rect.centerx / t.size.x) - 1)] = self._curtile
 
     def save_lvl_file(self, callback):
         with open(self._filename, 'w+') as lvlfile:

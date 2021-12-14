@@ -17,9 +17,8 @@ class Spritesheet(object):
 
 		for sprite in self.xml_sprites:
 			if not self.frames.get(sprite.attributes['name'].value):
-				self.spritecount += 1
 				self.frames[sprite.attributes['name'].value] = []
-				print(sprite.attributes['name'].value)
+				self.spritecount += 1
 				
 				for frame in sprite.getElementsByTagName('frame'):
 					frame_data = []
