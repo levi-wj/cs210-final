@@ -11,6 +11,7 @@ class LevelEditor():
         self._level = Level(levelname, 'sprites\\tiles\\tileset.xml', rendergroup)
         self._curtile = 1
         self._previewTile = Tile(self._level._tiles.get_sprite(1), v2(0, 0), v2(32, 32), 5, rendergroup)
+        self._spritecount = self._level._tiles.spritecount
         self._placing = False
         self._switching = False
         self._rendergroup = rendergroup
@@ -20,6 +21,7 @@ class LevelEditor():
 
     def place_tile(self):
         t = self._previewTile
+        print(int((t.rect.centerx / 16) - 1), int((t.rect.centery / 16) - 1))
         Tile(t.image, t.rect.bottomleft, t.size, t.layer, self._rendergroup)
         self._level._lvldata[int((t.rect.centerx / 16) - 1)][int((t.rect.centery / 16) - 1)] = self._curtile
 
@@ -33,9 +35,13 @@ class LevelEditor():
         if not self._switching:
             if keys[K_LEFT]:
                 self._curtile -= 1
+                if self._curtile < 0:
+                    self._curtile = self._spritecount - 1
                 self._previewTile.image = self._level._tiles.get_sprite(self._curtile)
             if keys[K_RIGHT]:
                 self._curtile += 1
+                if self._curtile > self._spritecount - 1:
+                    self._curtile = 0
                 self._previewTile.image = self._level._tiles.get_sprite(self._curtile)
         self._switching = (keys[K_LEFT] or keys[K_RIGHT])
 

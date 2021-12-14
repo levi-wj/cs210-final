@@ -6,6 +6,7 @@ pygame.init()
 class Spritesheet(object):
 	def __init__(self, xml_filename: str, fps: int=32, scale: int=1):
 		self.frames = {}
+		self.spritecount = 0
 		self.frame_index = 0
 		self.xml_sprites = XML.parse(xml_filename).getElementsByTagName('sprite')
 		self.fps = fps
@@ -16,7 +17,9 @@ class Spritesheet(object):
 
 		for sprite in self.xml_sprites:
 			if not self.frames.get(sprite.attributes['name'].value):
+				self.spritecount += 1
 				self.frames[sprite.attributes['name'].value] = []
+				print(sprite.attributes['name'].value)
 				
 				for frame in sprite.getElementsByTagName('frame'):
 					frame_data = []
