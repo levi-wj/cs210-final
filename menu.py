@@ -1,6 +1,21 @@
+'''
+Description:
+    The menu class creates the main menu
+    The button class is a UI element
+
+OOP Principles Used:
+  Abstraction, Polymorphism
+
+Reasoning:
+  This class uses abstraction because it provides one function to display the entire menu 
+  This class uses polymorphism because it the button class can be used to create a button with many variations
+'''
+
+
 import pygame
 from pygame.math import Vector2 as v2
 from conf import Conf
+
 
 class Menu():
     def __init__(self, display, startgame, leveleditor, quitgame, groups) -> None:
@@ -16,6 +31,7 @@ class Button(pygame.sprite.Sprite):
     def __init__(self, pos, size, text, color, highlight_color, onclick, groups):
         self._layer = 100
         super().__init__(groups)
+        self._name = 'button'
         self._pos = pos
         self._size = size
         self._color = color
@@ -46,32 +62,3 @@ class Button(pygame.sprite.Sprite):
                 self._onclick()
         else:
             self.surf.fill(self._color)
-
-'''class InputBox:
-    def __init__(self, pos, size, onsubmit):
-        self.surf = pygame.Surface(size)
-        self.surf.fill(color)
-        self.rect = self.surf.get_rect(center=pos)
-        self._text = font.render(text, False, (255, 255, 255))
-
-    def handle_event(self, event):
-        if event.type == pg.MOUSEBUTTONDOWN:
-            # If the user clicked on the input_box rect.
-            if self.rect.collidepoint(event.pos):
-                # Toggle the active variable.
-                self.active = not self.active
-            else:
-                self.active = False
-            # Change the current color of the input box.
-            self.color = COLOR_ACTIVE if self.active else COLOR_INACTIVE
-        if event.type == pg.KEYDOWN:
-            if self.active:
-                if event.key == pg.K_RETURN:
-                    print(self.text)
-                    self.text = ''
-                elif event.key == pg.K_BACKSPACE:
-                    self.text = self.text[:-1]
-                else:
-                    self.text += event.unicode
-                # Re-render the text.
-                self.txt_surface = FONT.render(self.text, True, self.color'''

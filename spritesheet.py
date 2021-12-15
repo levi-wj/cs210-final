@@ -1,3 +1,15 @@
+'''
+Description:
+    The spritesheet class reads an image file, slices it, and handles animations
+
+OOP Principles Used:
+     Abstraction, encapsulation 
+
+Reasoning:
+    This class uses abstraction because it abstracts away the complicated loading and slicing of spritesheets
+    This class uses encapsulation because all the data of the sheet is encapsulated in the class
+'''
+
 import pygame
 from xml.dom import minidom as XML
 

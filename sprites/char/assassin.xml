@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sprites>
+  <sprite name="assassin_walk">
+    <frame x="0" y="0" w="32" h="32" image="sprites\\char\\assassin.png"/>
+    <frame x="32" y="0" w="32" h="32" image="sprites\\char\\assassin.png"/>
+    <frame x="64" y="0" w="32" h="32" image="sprites\\char\\assassin.png"/>
+    <frame x="96" y="0" w="32" h="32" image="sprites\\char\\assassin.png"/>
+    <frame x="128" y="0" w="32" h="32" image="sprites\\char\\assassin.png"/>
+    <frame x="192" y="0" w="32" h="32" image="sprites\\char\\assassin.png"/>
+    <frame x="224" y="0" w="32" h="32" image="sprites\\char\\assassin.png"/>
+    <frame x="256" y="0" w="32" h="32" image="sprites\\char\\assassin.png"/>
+  </sprite>
+</sprites>

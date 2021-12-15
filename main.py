@@ -3,14 +3,14 @@ Description:
     This main file handles the game loops and state
 
 OOP Principles Used:
-  Inheritance, Abstraction, encapsulation, polymorphism
+  Encapsulation
 
 Reasoning:
-  This class uses inheritance because...
-  This file uses polymorphism etc....
+    This file uses encapsulation because all the details of the game are handled in other classes
 '''
 
 
+from os import curdir
 import sys
 import pygame
 from pygame.math import Vector2 as v2
@@ -28,6 +28,7 @@ class Main():
         pygame.init()
         self._clock = pygame.time.Clock()
         self._display = pygame.display.set_mode((Conf.WIDTH, Conf.HEIGHT))
+        self._curlevel = 1
         pygame.display.set_caption(Conf.APPTITLE)
 
         self._background = pygame.sprite.LayeredUpdates()
@@ -55,7 +56,7 @@ class Main():
         click = False
         for sprite in self._background:
             self._display.blit(sprite.image, sprite.rect)
-        Menu(self._display, lambda: self.start_level('1'), self.start_leveleditor, pygame.quit, self._foreground)
+        Menu(self._display, lambda: self.start_level(self._curlevel), self.start_leveleditor, pygame.quit, self._foreground)
 
         while True:
             for event in pygame.event.get():
@@ -77,7 +78,7 @@ class Main():
         self.clear_graphics()
         click = False 
 
-        player = Player(v2(0, 420), self._foreground)
+        Player(v2(0, 360), None, self._foreground)
         leveledit = LevelEditor(self.start_menu, self._cam, self._foreground)
 
         while True:
@@ -85,14 +86,16 @@ class Main():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                click = event.type == pygame.MOUSEBUTTONDOWN
+                if event.type == pygame.MOUSEBUTTONUP:
+                    click = False
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    click = True
 
             mousepos = pygame.mouse.get_pos()
 
             keys = pygame.key.get_pressed()
             leveledit.update(keys, v2(mousepos[0], mousepos[1]), click)
             self._cam.move(keys)
-            # self._cam.move_towards()
 
             offset = self._cam.get_drawing_offset()
             
@@ -109,7 +112,7 @@ class Main():
         self.clear_graphics()
 
         Level('levels\\' + str(levelname) + '.csv', 'sprites\\tiles\\tileset.xml', (self._interactables, self._foreground))
-        player = Player(v2(0, 450), self._foreground)
+        player = Player(v2(0, 360), self.next_level, self._foreground)
 
         while True:
             for event in pygame.event.get():
@@ -131,6 +134,15 @@ class Main():
             pygame.display.update()
             self._clock.tick(Conf.FPS)
             # print(clock.get_fps())
+
+    
+    def next_level(self):
+        self._curlevel += 1
+        if self._curlevel < 4:
+            self.start_level(self._curlevel)
+        else:
+            self.start_menu
+
 
 if __name__ == "__main__":
     Main()

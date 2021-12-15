@@ -12,3 +12,7 @@ The game will have multiple levels that you can progress through, and between th
 
 ## Resources Used
 I will be making a real-time graphical game using pygame. I will create the music myself and either create the art or use art liscensed under the creative commons liscense.
+
+# CONTROLS!!
+WASD to move, space to shoot
+In the level editor, WASD to move the camera, click to place tile, arrows to change tile type
